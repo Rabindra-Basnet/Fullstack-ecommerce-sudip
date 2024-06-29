@@ -8,7 +8,7 @@ import userRouter from "./routes/user.router.js"
 // Initialize express app
 const app = express();
 
-// // Middlewares.
+// // Middleware;
 app.use(express.json()); // // It parses incoming requests with JSON payloads and is based on body-parser.
 
 // // Routes: 

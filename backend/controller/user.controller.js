@@ -31,6 +31,32 @@ const signup = async (req, res, next) => {
 };
 
 
-export { signup };
+const login = async(req, res, next) =>{
+  try{
+    let{email, password} = req.body; 
+
+    let user= await User.findOne({email});
+    if(!user){
+     let err = new Error(`${email} not registered!`)
+     err.status = 400;
+     throw err
+    }
+    if (await user.matchPassword(password)){  // // The matchPassword from user.model is attached to user which is called static method. 
+    res.send({messsage:"Login Success!"})
+    }
+    else {
+        let err = new Error("Invalid Password!");
+        err.status = 400;
+        throw err;
+        }
+    }
+  catch(err){
+    next(err)
+  }
+  // // To check password we can create method here but we are creating in user model.
+}
+
+
+export { signup, login };
 
 

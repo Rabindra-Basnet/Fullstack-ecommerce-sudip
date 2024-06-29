@@ -26,6 +26,11 @@ const userScheam = new mongoose.Schema({
 {timestamps: true}
 );
 
+
+userScheam.methods.matchPassword = async function (password){  // // This password is plain text password and it is an argument.
+return await bcrypt.compare(password, this.password);  // // this.password is hashed password from database as it is reflecting the user of database.
+}
+
 // Schema ma jun data aako xa to database ma save hunu bhanda aagadi password lie encrypt garna.
 userScheam.pre("save", async function (next) {   // // This is callback function.
     if(!this.isModified("password")){  // // If the password is not modified it wil go as it is through next.
