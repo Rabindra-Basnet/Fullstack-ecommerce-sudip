@@ -9,6 +9,7 @@ Instructions on how to install and set up the project. : To install and use the 
 2. npm i - D nodemon = install required dependies. 
 3. npm run server = It helps to run the original application (Simply Application Server)
 4. npm i bcryptjs = used for running the hashsed password and also can be added as salt. 
+5. npm i colors = to see the methodwise error in terminal. 
 
 ## Usage
 

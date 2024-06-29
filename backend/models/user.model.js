@@ -27,7 +27,7 @@ const userScheam = new mongoose.Schema({
 );
 
 
-userScheam.methods.matchPassword = async function (password){  // // This password is plain text password and it is an argument.
+userScheam.methods.matchPassword = async function (password){  // // This password is plain text password and it is an argument. This is called static method.
 return await bcrypt.compare(password, this.password);  // // this.password is hashed password from database as it is reflecting the user of database.
 }
 
