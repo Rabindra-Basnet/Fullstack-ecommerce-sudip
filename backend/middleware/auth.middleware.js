@@ -31,7 +31,20 @@ const checkAuth = asyncHandler(async (req, res, next) => {
 });
 
 
-export default checkAuth;
+const checkAdmin = asyncHandler(async(req, res, next) => {
+    let isAdmin = req.user?.isAdmin;   // // ? - Means if the user is undefined it does not proceed towards .isAdmin.
+    if(isAdmin) next();
+    else {
+        let err = new Error("You are not authorized to perform this operation!");
+        err.status = 403;
+        throw err;   
+    }
+});
+
+
+
+export {checkAuth, checkAdmin};
+
 
 
 
