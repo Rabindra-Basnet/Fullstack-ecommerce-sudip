@@ -1,7 +1,7 @@
 // // To use user.controller.js we make the user.router.js.
 
 import express from "express";
-import { getUserProfile, getUsers, login, logout, signup } from "../controller/user.controller.js";
+import { getUserProfile, getUsers, login, logout, signup, updateUserProfile } from "../controller/user.controller.js";
 // import { get } from "mongoose";
 import {checkAuth, checkAdmin} from "../middleware/auth.middleware.js";
 
@@ -12,6 +12,7 @@ router.post("/login", login);
 router.post("/logout", logout);  // // Here we followed post method because through server we are maniplating in the clinet side. You can also use get method too.
 router.get("/getusers", checkAuth, checkAdmin, getUsers)
 router.get("/profile", checkAuth, getUserProfile);
+router.put("/updateprofile", checkAuth, updateUserProfile);
 
 export default router;
 

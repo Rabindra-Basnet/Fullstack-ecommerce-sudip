@@ -4,6 +4,7 @@ import User from "../models/user.model.js";
 // import bcrypt from "bcryptjs";  // // for another method.
 import createToken from "../../utils/token.util.js";
 import asyncHandler from "../middleware/asynchandler.middleware.js";
+import ApiError from "../../utils/apiError.js";
 
 
 // @Description register new user
@@ -89,6 +90,23 @@ const getUserProfile = asyncHandler (async (req, res) => {    // // User profile
 });
 
 
-export { signup, login, logout, getUsers, getUserProfile};
+const updateUserProfile = asyncHandler(async(req, res) => {
+  let id = req.user._id;  // // Gives the id of logged in user.
+  let user = await User.findById(id);  // // this is done because normal user cannot change or access the admin previllage.
+  if(user){
+    user.name = req.body.name || user.name;  // // User can and cannot send the name.
+    user.email = req.body.email || user.email;
+    if(req.body.password)  // // If we have password field then only I go to just down step.
+      user.password = req.body.password;   // // We do not follow the process as in eamil because here the password is already hashed and if we do show again it will be hashed. 
+    let UpdatedUser = await user.save();
+    res.send({message: "User updated", UpdatedUser});
+  }
+  else {
+    throw new ApiError(404, "User not found!")
+  }
+});
+
+
+export { signup, login, logout, getUsers, getUserProfile, updateUserProfile};
 
 
