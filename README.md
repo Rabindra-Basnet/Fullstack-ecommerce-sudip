@@ -11,6 +11,8 @@ Instructions on how to install and set up the project. : To install and use the 
 4. npm i bcryptjs = used for running the hashsed password and also can be added as salt and install bcrypt package. 
 5. npm i colors = to see the methodwise error in terminal and install color package. 
 6. npm i jsonwebtoken = used to install JSON web token in the project.
+7. npm i cookie-parser = to read we need cookie parser. So we installed this package.
+
 
 ## Usage
 

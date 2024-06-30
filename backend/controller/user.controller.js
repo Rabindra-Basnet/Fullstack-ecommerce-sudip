@@ -74,7 +74,7 @@ const logout = asyncHandler ((req, res) => {
 
 // @desc get all users
 // @route /api/v1/user/getusers
-// @access private + admin user
+// @access private + admin user  // // Only logged in user and admin user only can see this. Therefore we created auth middleware.
 const getUsers = asyncHandler (async(req, res) => {
   let users = await User.find({}).select("-password");  // // Here .select removes the password section while getting user details.
   res.send(users);

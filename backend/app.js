@@ -3,6 +3,7 @@ import express from "express";
 import notFoundHandler from "./middleware/notFound.middleware.js";
 import errorHandler from "./middleware/error.middleware.js";
 import logger from "./middleware/logger.middleware.js";
+import cookieParser from "cookie-parser";
 
 // // routers import
 import userRouter from "./routes/user.router.js"
@@ -12,6 +13,7 @@ const app = express();
 
 // // Middleware;
 app.use(express.json()); // // It parses incoming requests with JSON payloads and is based on body-parser.
+app.use(cookieParser());
 app.use(logger);
 
 // // Routes: 
