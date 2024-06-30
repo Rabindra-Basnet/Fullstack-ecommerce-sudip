@@ -15,11 +15,11 @@ const checkAuth = asyncHandler(async (req, res, next) => {
     }
     try{
         let { userID } = jwt.verify(token, process.env.JWT_SECRET);// // Here jwt.verify pass the token and if the user is verified then it gives payload imported on it in them form of object. Then the object is destructurd and {userID} is taken off.
-        let user = await User.findById(userID);
+        let user = await User.findById(userID);  // // Here normal user are also accesing the property of admin.
         req.user ={
             name: user.name,
             email: user.email,
-            isAdmin: user.isAdmin,
+            isAdmin: user.isAdmin,  
         };
         next();
     }
