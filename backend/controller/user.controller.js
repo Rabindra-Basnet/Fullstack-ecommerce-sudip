@@ -3,9 +3,11 @@
 import User from "../models/user.model.js";
 // import bcrypt from "bcryptjs";  // // for another method.
 import createToken from "../../utils/token.util.js";
+import asyncHandler from "../middleware/asynchandler.middleware.js";
 
-const signup = async (req, res, next) => {
-   try{
+
+const signup = asyncHandler(async (req, res, next) => {  // // Wrapping the code with asynHander made in middleware.
+  //  // try{   // // Removing try catch.
     let {email, password} = req.body;
     let userexists = await User.findOne({email}); // // Here one email is from userSchema(User) and the other email is from let(just above) but we are writing only one email because having same key and value can be passed only once.
     if(userexists){
@@ -26,15 +28,14 @@ const signup = async (req, res, next) => {
             isAdmin: user.isAdmin,
         },
     });
-   }
-   catch(err){
-    next(err);
-   }
-};
+  // //  }
+  // // catch(err){    Removing try catch
+  // //  next(err);
+  // // }
+});
 
 
-const login = async(req, res, next) =>{
-  try{
+const login = asyncHandler (async(req, res, next) =>{
     let{email, password} = req.body; 
 
     let user= await User.findOne({email});
@@ -52,18 +53,14 @@ const login = async(req, res, next) =>{
         err.status = 400;
         throw err;
         }
-    }
-  catch(err){
-    next(err)
-  }
   // // To check password we can create method here but we are creating in user model.
-}
+});
 
 
-const logout = (req, res) => {
+const logout = asyncHandler ((req, res) => {
   res.clearCookie("jwt");
   res.send({ message: "Logout Success!"});
-};
+});
 
 
 export { signup, login, logout};
