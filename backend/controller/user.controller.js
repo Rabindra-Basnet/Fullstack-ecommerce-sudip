@@ -6,6 +6,9 @@ import createToken from "../../utils/token.util.js";
 import asyncHandler from "../middleware/asynchandler.middleware.js";
 
 
+// @Description register new user
+// @route /api/v1/user/signup
+// @access public
 const signup = asyncHandler(async (req, res, next) => {  // // Wrapping the code with asynHander made in middleware.
   //  // try{   // // Removing try catch.
     let {email, password} = req.body;
@@ -35,6 +38,9 @@ const signup = asyncHandler(async (req, res, next) => {  // // Wrapping the code
 });
 
 
+// @Description login user
+// @route /api/v1/user/login
+// @access public
 const login = asyncHandler (async(req, res, next) =>{
     let{email, password} = req.body; 
 
@@ -57,12 +63,25 @@ const login = asyncHandler (async(req, res, next) =>{
 });
 
 
+// @Description logot user
+// @route /api/v1/user/logout
+// @access private
 const logout = asyncHandler ((req, res) => {
   res.clearCookie("jwt");
   res.send({ message: "Logout Success!"});
 });
 
 
-export { signup, login, logout};
+// @desc get all users
+// @route /api/v1/user/getusers
+// @access private + admin user
+const getUsers = asyncHandler (async(req, res) => {
+  let users = await User.find({}).select("-password");  // // Here .select removes the password section while getting user details.
+  res.send(users);
+});
+
+
+
+export { signup, login, logout, getUsers};
 
 
