@@ -2,6 +2,7 @@
 
 import User from "../models/user.model.js";
 // import bcrypt from "bcryptjs";  // // for another method.
+import createToken from "../../utils/token.util.js";
 
 const signup = async (req, res, next) => {
    try{
@@ -16,6 +17,7 @@ const signup = async (req, res, next) => {
     // let hashedPassword = await bcrypt.hash(password, salt);  
     // let user = await User.create({...req.body, password:hashedPassword})  // // Another method of hashing ans salting (these 3 line and above import bycript).
     let user = await User.create(req.body);
+    createToken(res, user._id)
     res.send({
         message: "User Registered!",
         user: {
@@ -42,7 +44,8 @@ const login = async(req, res, next) =>{
      throw err
     }
     if (await user.matchPassword(password)){  // // The matchPassword from user.model is attached to user which is called static method. 
-    res.send({messsage:"Login Success!"})
+      createToken(res, user._id);   // // Passing the jwt to cokies.
+      res.send({messsage:"Login Success!"})
     }
     else {
         let err = new Error("Invalid Password!");
