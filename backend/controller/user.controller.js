@@ -81,6 +81,14 @@ const getUsers = asyncHandler (async(req, res) => {
 });
 
 
-export { signup, login, logout, getUsers};
+//@desc get user profile
+// @route /api/v1/user/profile
+// @access private
+const getUserProfile = asyncHandler (async (req, res) => {    // // User profile comes after logged in. For that we created checkAuth function where we have passed all the user information on user on auth.middleware.js.
+  res.send(req.user);
+});
+
+
+export { signup, login, logout, getUsers, getUserProfile};
 
 
