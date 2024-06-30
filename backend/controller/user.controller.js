@@ -81,7 +81,6 @@ const getUsers = asyncHandler (async(req, res) => {
 });
 
 
-
 export { signup, login, logout, getUsers};
 
 
