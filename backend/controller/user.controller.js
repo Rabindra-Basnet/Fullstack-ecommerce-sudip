@@ -75,7 +75,7 @@ const logout = asyncHandler ((req, res) => {
 
 // @desc get all users
 // @route /api/v1/user/getusers
-// @access private + admin user  // // Only logged in user and admin user only can see this. Therefore we created auth middleware.
+// @access private + admin user  // // Only admin user can use this and see all the normal as well as other admiin details. Therefore we created auth middleware.
 const getUsers = asyncHandler (async(req, res) => {
   let users = await User.find({}).select("-password");  // // Here .select removes the password section while getting user details.
   res.send(users);
@@ -86,10 +86,11 @@ const getUsers = asyncHandler (async(req, res) => {
 // @route /api/v1/user/profile
 // @access private
 const getUserProfile = asyncHandler (async (req, res) => {    // // User profile comes after logged in. For that we created checkAuth function where we have passed all the user information on user on auth.middleware.js.
-  res.send(req.user);
+  res.send(req.user); // // Here only the details of each specific users are given to the account owner only. Even admin cannot see the other user data from this portal.
 });
 
 
+// For normal user
 const updateUserProfile = asyncHandler(async(req, res) => {
   let id = req.user._id;  // // Gives the id of logged in user.
   let user = await User.findById(id);  // // this is done because normal user cannot change or access the admin previllage.
@@ -107,6 +108,23 @@ const updateUserProfile = asyncHandler(async(req, res) => {
 });
 
 
-export { signup, login, logout, getUsers, getUserProfile, updateUserProfile};
+// // Desc: Only admin can update the data of particular user from the list of users.
+
+const updateUser = asyncHandler (async (req, res) => {
+  let id = req.params.id;
+  let user = await User.findById(id);
+  if (user){
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = Boolean(req.body.isAdmin);   // // Changing normal user into admin user this line is used.
+    let updatedUser = await user.save();
+    res.send({message: "User Update!", user:updatedUser})
+  }
+  else{
+    throw new ApiError(404, "User Not Found!");
+  }
+});
+
+export { signup, login, logout, getUsers, getUserProfile, updateUserProfile, updateUser};
 
 
