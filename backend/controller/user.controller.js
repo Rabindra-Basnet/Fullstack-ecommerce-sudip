@@ -90,7 +90,9 @@ const getUserProfile = asyncHandler (async (req, res) => {    // // User profile
 });
 
 
-// For normal user
+// @DecFor normal user whose accounts belongs to them.
+// @route/api/v1/user/updateprofile
+// @access private
 const updateUserProfile = asyncHandler(async(req, res) => {
   let id = req.user._id;  // // Gives the id of logged in user.
   let user = await User.findById(id);  // // this is done because normal user cannot change or access the admin previllage.
@@ -108,8 +110,9 @@ const updateUserProfile = asyncHandler(async(req, res) => {
 });
 
 
-// // Desc: Only admin can update the data of particular user from the list of users.
-
+// @Desc: Only admin can update the data of particular user from the list of users.
+// @route /api/v1/user/updateuser
+// @access private
 const updateUser = asyncHandler (async (req, res) => {
   let id = req.params.id;
   let user = await User.findById(id);
@@ -125,6 +128,18 @@ const updateUser = asyncHandler (async (req, res) => {
   }
 });
 
-export { signup, login, logout, getUsers, getUserProfile, updateUserProfile, updateUser};
+// @Desc Deleteing normal users by the admin and admin cannot delete admin. 
+const deleteUser = asyncHandler (async (req, res) =>{
+  let id = req.params.id;
+  let user = await User.findById(id);
+  if(user.isAdmin) {   // // Checking is user admin or not.
+    throw new ApiError(400, "Cannot delete the Admin User!");
+  }
+  await User.findByIdAndDelete(id);
+  res.send({message: "User deleted successfully!"});
+});
+
+
+export { signup, login, logout, getUsers, getUserProfile, updateUserProfile, updateUser, deleteUser};
 
 

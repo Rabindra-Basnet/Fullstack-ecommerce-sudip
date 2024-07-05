@@ -1,7 +1,7 @@
 // // To use user.controller.js we make the user.router.js.
 
 import express from "express";
-import { getUserProfile, getUsers, login, logout, signup, updateUser, updateUserProfile } from "../controller/user.controller.js";
+import { deleteUser, getUserProfile, getUsers, login, logout, signup, updateUser, updateUserProfile } from "../controller/user.controller.js";
 // import { get } from "mongoose";
 import {checkAuth, checkAdmin} from "../middleware/auth.middleware.js";
 
@@ -13,7 +13,8 @@ router.post("/logout", logout);  // // Here we followed post method because thro
 router.get("/getusers", checkAuth, checkAdmin, getUsers)
 router.get("/profile", checkAuth, getUserProfile);
 router.put("/updateprofile", checkAuth, updateUserProfile);
-router.put("/updateuser", checkAuth, updateUser)
+router.put("/updateuser/:id", checkAuth, updateUser);
+router.delete("/deleteuser/:id", deleteUser);
 
 export default router;
 
