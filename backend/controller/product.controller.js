@@ -106,7 +106,7 @@ const addUserReview = asyncHandler (async (req, res) => {
         user: req.user._id,
     });
     product.numReviews = product.reviews.length;   // // Shows the number of reviews.
-    let totalRating = product.reviews.reduce((acc, review) => acc + review.rating, 0)
+    let totalRating = product.reviews.reduce((acc, review) => acc + review.rating, 0) // // Shows number of people to review with average review(combination review of multiple user).
     product.rating = (totalRating / product.reviews.length).toFixed(2);
     await product.save();
     res.send({message: "Review added successfully!"})

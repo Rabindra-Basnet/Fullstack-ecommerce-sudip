@@ -6,13 +6,13 @@ A brief description of your project.: This project is based on the ecommerce pla
 
 Instructions on how to install and set up the project. : To install and use the project follow the given steps below:
 1. npm i express mongoose = installation of express framework and MongoDB data base package.
-2. npm i - D nodemon = install required dependies. 
+2. npm i - D nodemon / npm i nodemon -D = install required dependies. Here -D indicates dev dependencies.
 3. npm run server = It helps to run the original application (Simply Application Server)
 4. npm i bcryptjs = used for running the hashsed password and also can be added as salt and install bcrypt package. 
 5. npm i colors = to see the methodwise error in terminal and install color package. 
 6. npm i jsonwebtoken = used to install JSON web token in the project.
 7. npm i cookie-parser = to read we need cookie parser. So we installed this package.
-
+8. npm i dotenv = to load Env File we can install this package of have code process.loadEnvFile();
 
 ## Usage
 
