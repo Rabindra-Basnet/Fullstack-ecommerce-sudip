@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const reviewSchema = new mongoose.Schema({
     name: String,
-    Comments: String,
+    comment: String,
     rating: Number,
     user:{   // // This is a normal user who gives comment on that particular product.
         type:mongoose.Schema.Types.ObjectId,
@@ -39,16 +39,16 @@ const productSchema = new mongoose.Schema(
     },
     countInStock: {
         type: Number,
-        required: true,
+        default: 0,
     },
-    // rating: {
-    //     type: Number,
-    //     default: 0,
-    // },
-    // numReviews: {
-    //     type: Number,
-    //     default: 0,
-    // },
+    rating: {
+        type: Number,
+        default: 0,
+    },
+    numReviews: {
+        type: Number,
+        default: 0,
+    },
     reviews: [reviewSchema],
     // reviews:[
     //     {

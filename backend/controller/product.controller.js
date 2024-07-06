@@ -74,5 +74,44 @@ const deleteProduct = asyncHandler (async (req, res) => {
     res.send({ message: "Poduct deleted successfylly!"});
 });
 
-export {getProducts, getProdcutById, addProduct, updateProduct, deleteProduct};
 
+// @desc getting the top rated products
+// @route /api/v1/products/topproducts/:limit
+// @access public
+const getTopProducts = asyncHandler (async (req, res) => {    // // This shows top products as per the value u put on limit might be top 10, 20, 30 ..
+      let limit = Number(req.params.limit)   // // Giving the number of required products also by paramater.
+    let products = await Product.find({}).sort({rating: -1}).limit(limit);    // // Insted pf making limit we can pass directly number in ....>>>.. limit(10)
+    res.send(products);
+});
+
+
+// @desc adding user review section
+// @route /api/v1/products/topproducts/:limit
+// @access public
+const addUserReview = asyncHandler (async (req, res) => {
+    let id = req.params.id;
+    let product = await Product.findById(id);
+    if(!product){
+        throw new ApiError(404, "Product Not Found!");
+    }
+
+    let alreadyReviewed = product.reviews.find(r => r.user.toString() === req.user._id.toString());  // // Already reviewed user cannot review again.
+    if(alreadyReviewed) throw new ApiError(404, "Already Reviewed!")
+        
+    let {rating, comment} = req.body;
+    product.reviews.push({
+        name: req.user.name,
+        rating,
+        comment,
+        user: req.user._id,
+    });
+    product.numReviews = product.reviews.length;   // // Shows the number of reviews.
+    let totalRating = product.reviews.reduce((acc, review) => acc + review.rating, 0)
+    product.rating = (totalRating / product.reviews.length).toFixed(2);
+    await product.save();
+    res.send({message: "Review added successfully!"})
+});
+
+
+
+export {getProducts, getProdcutById, addProduct, updateProduct, deleteProduct, getTopProducts, addUserReview};
