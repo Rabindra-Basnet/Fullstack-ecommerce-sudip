@@ -5,6 +5,7 @@ import User from "../models/user.model.js";
 import createToken from "../../utils/token.util.js";
 import asyncHandler from "../middleware/asynchandler.middleware.js";
 import ApiError from "../../utils/apiError.js";
+import { isEmail, isStrongPassword } from "../../utils/validator.js";
 
 
 // @Description register new user
@@ -12,7 +13,13 @@ import ApiError from "../../utils/apiError.js";
 // @access public
 const signup = asyncHandler(async (req, res, next) => {  // // Wrapping the code with asynHander made in middleware.
   //  // try{   // // Removing try catch.
-    let {email, password} = req.body;
+    let {email, password, confirmpassword} = req.body;
+    if (!isEmail(email)){    // // Adding email validator.
+      throw new ApiError (400, "Invalid Email!");
+    }
+    if(!isStrongPassword(password)){    // // Adding password validator made on utils (validator.js)
+      throw new ApiError(400, "Password must have atlest 1 uppercase, 1 lowercase, 1 digit and 1 special character.");
+    }
     let userexists = await User.findOne({email}); // // Here one email is from userSchema(User) and the other email is from let(just above) but we are writing only one email because having same key and value can be passed only once.
     if(userexists){
         let err = new Error(`User with email ${email} already exists.`);
@@ -22,6 +29,7 @@ const signup = asyncHandler(async (req, res, next) => {  // // Wrapping the code
     // let salt = await bcrypt.genSalt(10);
     // let hashedPassword = await bcrypt.hash(password, salt);  
     // let user = await User.create({...req.body, password:hashedPassword})  // // Another method of hashing ans salting (these 3 line and above import bycript).
+    // if(password != confirmpassword) throw new ApiError // // To match the password we did this but it is good to do in the froentend form part.
     let user = await User.create(req.body);
     createToken(res, user._id)
     res.send({

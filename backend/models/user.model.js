@@ -12,6 +12,7 @@ const userScheam = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        // match:/^([a-zA-Z][\w\.\-]+[a-zA-Z0-9])@([a-zA-Z0-9]{2,20})\.([a-zA-Z]{2,5})(\.[a-zA-Z]{2,5})?$/ // // We can validate here also but it is a last stage. We should validate from frontend process as far as possible.
     },
     password: {
         type: String,
