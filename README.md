@@ -2,8 +2,9 @@
 
 A brief description of your project.: This project is based on the ecommerce platform like daraz but in the samll scale. It is made up by employing the programming language called JavaScript. It uses the framework like Express, Node, React with MongoDB as database know as MERN Stack.
 
-## Installation
+# Backend
 
+## Installation
 Instructions on how to install and set up the project. : To install and use the project follow the given steps below:
 1. npm i express mongoose = installation of express framework and MongoDB data base package.
 2. npm i - D nodemon / npm i nodemon -D = install required dependies. Here -D indicates dev dependencies.
@@ -13,6 +14,15 @@ Instructions on how to install and set up the project. : To install and use the 
 6. npm i jsonwebtoken = used to install JSON web token in the project.
 7. npm i cookie-parser = to read we need cookie parser. So we installed this package.
 8. npm i dotenv = to load Env File we can install this package of have code process.loadEnvFile();
+
+# Frontend
+
+## Installation
+1. npm create vite@latest frontend = Initializating the react project using vite.
+2. npm install - to install the required dependencies
+3. npm run dev - to run the server and frontend project.
+4. npm i bootstrap react-icons react-bootstrap = install the bootstap, react relating bootstrap and icons.
+
 
 ## Usage
 
