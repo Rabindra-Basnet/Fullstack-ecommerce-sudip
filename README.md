@@ -16,7 +16,7 @@ Instructions on how to install and set up the project. : To install and use the 
 
 ## Usage
 
-Examples of how to use the project. : Use the project as a ecommerce business portal. 
+Examples of how to use the project. : Use the project as a ecommerce business portal for the backend. 
 
 ## Contributing
 
@@ -24,6 +24,6 @@ Guidelines for contributing to the project. : Make the branch and push while wor
 
 ## License
 
-Information about the project's license. It has ISC lisence. 
+Information about the project's license. It has MIT lisence. 
 
 
