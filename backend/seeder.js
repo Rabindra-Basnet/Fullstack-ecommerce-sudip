@@ -57,7 +57,7 @@ if (process.argv[2] == "-d"){    // // run from terminal: node .\backend\seeder.
     destroyData();
 }
 else{
-    importData();  // // run from terminal: node .\backend\seeder.js
+    importData();  // // run  from terminal: node .\backend\seeder.js
 };
 
 
