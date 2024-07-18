@@ -1,0 +1,18 @@
+.rating{
+    margin: 0.5rem;
+}
+
+.rating svg{
+    color: rgb(244, 132, 4);
+}
+
+.rating-text{
+    margin: 0.5rem;
+    margin-top: 2px;
+}
+
+.ovrflow{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

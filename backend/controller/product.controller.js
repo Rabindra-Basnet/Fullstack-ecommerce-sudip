@@ -1,4 +1,4 @@
-import ApiError from "../../utils/apiError.js";
+import ApiError from "../utils/apiError.js";
 import asyncHandler from "../middleware/asynchandler.middleware.js";
 import Product from "../models/product.model.js";
 

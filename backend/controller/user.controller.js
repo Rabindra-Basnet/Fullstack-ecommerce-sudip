@@ -2,10 +2,10 @@
 
 import User from "../models/user.model.js";
 // import bcrypt from "bcryptjs";  // // for another method.
-import createToken from "../../utils/token.util.js";
+import createToken from "../utils/token.util.js";
 import asyncHandler from "../middleware/asynchandler.middleware.js";
-import ApiError from "../../utils/apiError.js";
-import { isEmail, isStrongPassword } from "../../utils/validator.js";
+import ApiError from "../utils/apiError.js";
+import { isEmail, isStrongPassword } from "../utils/validator.js";
 
 
 // @Description register new user

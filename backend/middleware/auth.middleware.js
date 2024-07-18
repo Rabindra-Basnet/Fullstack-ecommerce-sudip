@@ -5,7 +5,7 @@
 import jwt from "jsonwebtoken";
 import asyncHandler from "./asynchandler.middleware.js";
 import User from "../models/user.model.js";
-import ApiError from "../../utils/apiError.js";
+import ApiError from "../utils/apiError.js";
 
 
 const checkAuth = asyncHandler(async (req, res, next) => {
