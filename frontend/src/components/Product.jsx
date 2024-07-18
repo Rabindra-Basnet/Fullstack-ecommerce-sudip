@@ -6,7 +6,7 @@ function Product({ product }){
         <Card className="my-3 p-3">
             <Card.Img src={product.image} variant="top"/>
             <Card.Body>
-                <Card.Text className="ovrflow" as="div">
+                <Card.Text className="product-title" as="div">
                     <strong> {product.name}</strong>
                 </Card.Text>
                 <Card.Text as="div">
