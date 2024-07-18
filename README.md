@@ -22,6 +22,8 @@ Instructions on how to install and set up the project. : To install and use the 
 2. npm install - to install the required dependencies
 3. npm run dev - to run the server and frontend project.
 4. npm i bootstrap react-icons react-bootstrap = install the bootstap, react relating bootstrap and icons.
+5. npm i react-router-dom = for importing the router package required for routing.
+6. rafce (in coding) = generates boilarplate as per the file name after installing react snippet.
 
 
 ## Usage
