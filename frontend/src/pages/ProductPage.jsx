@@ -1,22 +1,25 @@
 import { Image, Row, Col, ListGroup, Button } from "react-bootstrap";
+import axios from "axios";
 import Rating from "../components/Rating";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom"; // // We are using the parameter.
 
 function ProductPage() {
-    let product={
-        name: "iPhone 13 Pro 256GB Memory",
-        image: "/images/phone.jpg",
-        description:
-            "Introducing the iPhone 13 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life",
-        brand: "Apple",
-        category: "Electronics",
-        price: 599.99,
-        countInStock: 7,
-        rating: 4.0,
-        numReviews: 8,
-    }
+    const { id } = useParams();  // // ID comes from main.jsx from route call of ProductPage(this);
+    const [product, setProduct] = useState({});
+    useEffect(() => {
+        axios
+        .get("/api/v1/products/" + id)
+        .then((resp) => setProduct(resp.data))
+        .catch((err) => console.log(err.message));
+        }, []);
+
     return(
         <>
-            <Row>
+        <Link to="/">
+            <button type="button" class="btn btn-primary btn-md">Go Back</button>
+        </Link>
+            <Row className="my-3">
                 <Col md={5}>
                     <Image src = {product.image} fluid/>
                 </Col>
