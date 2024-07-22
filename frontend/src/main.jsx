@@ -1,13 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import {RouterProvider, createBrowserRouter, createRoutesFromElements, Route} from 'react-router-dom'
-import App from './App.jsx'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './index.css'
-import HomePage from './pages/HomePage.jsx'
-import ProductPage from './pages/ProductPage.jsx'
-import CartPage from './pages/CartPage.jsx'
-import LoginPage from './pages/LoginPage.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import {RouterProvider, createBrowserRouter, createRoutesFromElements, Route} from 'react-router-dom';
+import App from './App.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
+import HomePage from './pages/HomePage.jsx';
+import ProductPage from './pages/ProductPage.jsx';
+import CartPage from './pages/CartPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import {Provider} from 'react-redux';
+import { store } from './store.js';
 
 // const router = createBrowserRouter([
 //   {
@@ -54,7 +56,9 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 );
 
 

@@ -3,10 +3,14 @@ import axios from "axios";
 import Rating from "../components/Rating";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"; // // We are using the parameter.
+import { addItem } from "../slices/cartSlice";
+import { useDispatch } from "react-redux"; // // For using the imported addItem, just above.
+
 
 function ProductPage() {
     const { id } = useParams();  // // ID comes from main.jsx from route call of ProductPage(this);
     const [product, setProduct] = useState({});
+    const dispatch = useDispatch();
     useEffect(() => {
         axios
         .get("/api/v1/products/" + id)
@@ -14,10 +18,15 @@ function ProductPage() {
         .catch((err) => console.log(err.message));
         }, []);
 
+
+    const addToCartHandler = (item) => {
+        dispatch(addItem(item));
+    };
+
     return(
         <>
         <Link to="/">
-            <button type="button" class="btn btn-primary btn-md">Go Back</button>
+            <button type="button" className="btn btn-primary btn-md">Go Back</button>
         </Link>
             <Row className="my-3">
                 <Col md={5}>
@@ -46,7 +55,9 @@ function ProductPage() {
                             </Row>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Button variant="secondary" disabled={product.countInStock <= 0 }>Add to Cart</Button>
+                            <Button variant="secondary" disabled={product.countInStock <= 0 } onClick={() => addToCartHandler(product)}>
+                                Add to Cart
+                            </Button>
                         </ListGroup.Item>
                     </ListGroup>
                 </Col>

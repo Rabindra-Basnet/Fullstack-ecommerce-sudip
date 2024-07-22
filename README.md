@@ -32,6 +32,10 @@ Instructions on how to install and set up the project. : To install and use the 
 6. rafce (in coding) = generates boilarplate as per the file name after installing react snippet.
 7. npm i axios = package of setting route (to connecet frontend and backend using api) or use fetch api.
 
+<<<<<< Redux >>>>>>
+8. npm i @reduxjs/toolkit = install the redux tool kit, wholly redux configuration.
+9. npm i react-redux = isntall the redux tools kit, means which is configured to wrap that in the react and supply in the component we use this command.
+
 ## Usage
 
 Examples of how to use the project. : Use the project as a ecommerce business portal for the backend. 
