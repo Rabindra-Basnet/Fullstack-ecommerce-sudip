@@ -1,16 +1,19 @@
-import { Image, Row, Col, ListGroup, Button } from "react-bootstrap";
+import { Image, Row, Col, ListGroup, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import Rating from "../components/Rating";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom"; // // We are using the parameter.
+import { Link, useParams, useNavigate } from "react-router-dom"; // // We are using the parameter.
 import { addItem } from "../slices/cartSlice";
 import { useDispatch } from "react-redux"; // // For using the imported addItem, just above.
 
 
 function ProductPage() {
     const { id } = useParams();  // // ID comes from main.jsx from route call of ProductPage(this);
+    const [qty, setQty] = useState(1);
     const [product, setProduct] = useState({});
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     useEffect(() => {
         axios
         .get("/api/v1/products/" + id)
@@ -21,6 +24,7 @@ function ProductPage() {
 
     const addToCartHandler = (item) => {
         dispatch(addItem(item));
+        navigate("/cart")
     };
 
     return(
@@ -55,7 +59,19 @@ function ProductPage() {
                             </Row>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Button variant="secondary" disabled={product.countInStock <= 0 } onClick={() => addToCartHandler(product)}>
+                            <Form.Control as="select" value={qty} 
+                            onChange={(e) => setQty(e.target.value)}
+                            >
+                                {[...Array (product.countInStock).keys()].map((x) => (
+                                    <option key={x+1}>{x+1}</option>
+                                ))}
+                            </Form.Control>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Button variant="secondary" 
+                            disabled={product.countInStock <= 0 } 
+                            onClick={() => addToCartHandler({...product, qty: Number(qty)})}
+                            >
                                 Add to Cart
                             </Button>
                         </ListGroup.Item>
