@@ -1,19 +1,19 @@
-.rating{
-    margin: 0.5rem;
+.rating {
+  margin: 0.5rem;
 }
 
-.rating svg{
-    color: rgb(244, 132, 4);
+.rating svg {
+  color: rgb(244, 132, 4);
 }
 
-.rating-text{
-    margin: 0.5rem;
-    margin-top: 2px;
+.rating-text {
+  margin: 0.5rem;
+  margin-top: 2px;
 }
 
-.product-title{
-    line-height: 1.8rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.product-title {
+  line-height: 1.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

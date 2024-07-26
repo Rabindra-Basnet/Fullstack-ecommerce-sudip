@@ -4,29 +4,28 @@ import Product from "../components/Product";
 import { useEffect, useState } from "react";
 
 const HomePage = () => {
-  const [ products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   useEffect(() => {
     fetch("/api/v1/products")
-    .then((resp) => resp.json())
-    .then((data) => setProducts(data))
-    .catch((err) =>
-    console.log("Error occur while fetching api", err.message));
+      .then((resp) => resp.json())
+      .then((data) => setProducts(data))
+      .catch((err) =>
+        console.log("Error occur while fetching api", err.message)
+      );
   }, []);
   return (
     <>
-     <h1> Latest Products </h1>
-        <Row>
-          {
-            products.map(product => (
-              <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
-                <Product product={product}/>
-              </Col>
-            ))
-          }
-        </Row>
+      <h1> Latest Products </h1>
+      <Row>
+        {products.map((product) => (
+          <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+            <Product product={product} />
+          </Col>
+        ))}
+      </Row>
     </>
-  )
-}
+  );
+};
 
 // // Next way to fetech the product: to use these replace code from fetch above.
 // // Means comment from const to []); just above to return. Now add another const: const products = userLoaderData();
@@ -44,5 +43,3 @@ const HomePage = () => {
 // // But in useEffect when you click the button, link then only they starts fetching data.
 
 export default HomePage;
-
-

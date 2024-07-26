@@ -7,15 +7,13 @@ function App() {
   return (
     <>
       <h1> Ecommerce</h1>
-      <Header/>
+      <Header />
       <Container className="my-3">
-        <Outlet/>
+        <Outlet />
       </Container>
-      <Footer/>
+      <Footer />
     </>
-  )
+  );
 }
 
 export default App;
-
-
