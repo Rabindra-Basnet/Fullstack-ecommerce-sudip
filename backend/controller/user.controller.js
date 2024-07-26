@@ -61,7 +61,14 @@ const login = asyncHandler (async(req, res, next) =>{
     }
     if (await user.matchPassword(password)){  // // The matchPassword from user.model is attached to user which is called static method. 
       createToken(res, user._id);   // // Passing the jwt to cokies.
-      res.send({messsage:"Login Success!"})
+      res.send({
+        messsage: "Login Success!",
+        user: {
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin
+        },
+      })
     }
     else {
         let err = new Error("Invalid Password!");
