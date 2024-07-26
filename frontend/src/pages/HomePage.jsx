@@ -1,28 +1,42 @@
 import { Row, Col } from "react-bootstrap";
 // import products from "../products";  // // Now we can delete the product.js from the fontend because we are fetching from backend.
 import Product from "../components/Product";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import { useGetProductsQuery } from "../slices/productSlice";
+import Message from "../components/Message";
 
+// // Using the fetch api to fetch the data from backend by using state.
+// const HomePage = () => {
+//   const [products, setProducts] = useState([]);
+//   useEffect(() => {
+//     fetch("/api/v1/products")
+//       .then((resp) => resp.json())
+//       .then((data) => setProducts(data))
+//       .catch((err) =>
+//         console.log("Error occur while fetching api", err.message)
+//       );
+//   }, []);
+
+// // Using productSlice from aplSlice to fetch the data from backend.
 const HomePage = () => {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    fetch("/api/v1/products")
-      .then((resp) => resp.json())
-      .then((data) => setProducts(data))
-      .catch((err) =>
-        console.log("Error occur while fetching api", err.message)
-      );
-  }, []);
+  const { data: products, isLoading, error } = useGetProductsQuery();
+  // console.log(error);
   return (
     <>
-      <h1> Latest Products </h1>
-      <Row>
-        {products.map((product) => (
-          <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
-            <Product product={product} />
-          </Col>
-        ))}
-      </Row>
+      <h1>Latest Products</h1>
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : error ? (
+        <Message variant="danger">{error?.data?.error || error.error}</Message>
+      ) : (
+        <Row>
+          {products.map((product) => (
+            <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+              <Product product={product} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   );
 };
