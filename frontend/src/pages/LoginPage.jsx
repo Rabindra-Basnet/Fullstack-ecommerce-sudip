@@ -4,15 +4,19 @@ import { FormGroup, Form, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../slices/authSlice";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
   const [login, { isLoading }] = useLoginMutation();
   const submitHandler = async (e) => {
     e.preventDefault(); // // protects screen from being refreshed after submiting the form.
     try {
       let resp = await login({ email, password }).unwrap(); // // Promise lie resolve gara aako data lie unwrap garako.
+      dispatch(setCredentials(resp.user));
       toast.success(resp.message);
     } catch (err) {
       toast.error(err.message || "Login failed");
