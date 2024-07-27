@@ -1,11 +1,20 @@
-import { Navbar, Container, Nav, Badge } from "react-bootstrap";
+import { Navbar, Container, Nav, Badge, NavDropdown } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux"; // // Hook for selecting the state cartItem made on cartSlice.js
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux"; // // Hook for selecting the state cartItem made on cartSlice.js
 import logo from "../assets/react.svg";
+import { logout } from "../slices/authSlice";
 
 function Header() {
   const { cartItems } = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logoutHander = () => {
+    dispatch(logout());
+    navigate("/signin");
+  };
+
   console.log(cartItems);
   return (
     <header>
@@ -27,9 +36,18 @@ function Header() {
                   </Badge>
                 )}
               </NavLink>
-              <NavLink to="/signin" className="nav-link">
-                <FaUser /> Signin
-              </NavLink>
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id="profile-dropdown">
+                  <NavDropdown.Item> Profile </NavDropdown.Item>
+                  <NavDropdown.Item onClick={logoutHander}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <NavLink to="/signin" className="nav-link">
+                  <FaUser /> Login
+                </NavLink>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

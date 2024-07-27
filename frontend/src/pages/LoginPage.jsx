@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormContainer from "../components/FormContainer";
 import { FormGroup, Form, Button, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,8 +10,21 @@ import { setCredentials } from "../slices/authSlice";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [login, { isLoading }] = useLoginMutation();
+  const { search } = useLocation();
+  const sp = new URLSearchParams(search);
+  const redirect = sp.get("redirect") || "/";
+  console.log(redirect);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [userInfo, redirect, navigate]);
+
   const submitHandler = async (e) => {
     e.preventDefault(); // // protects screen from being refreshed after submiting the form.
     try {
@@ -19,7 +32,7 @@ const LoginPage = () => {
       dispatch(setCredentials(resp.user));
       toast.success(resp.message);
     } catch (err) {
-      toast.error(err.message || "Login failed");
+      toast.error(err.data.error || "Login failed");
       console.log(err);
     }
   };
