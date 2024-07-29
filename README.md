@@ -28,7 +28,7 @@ Instructions on how to install and set up the project. : To install and use the 
 1. npm create vite@latest frontend = Initializating the react project using vite.
 2. npx create-react-app reactapp01 = creating the project using the react app not the vite app.
 3. npm install - to install the required dependencies
-4. npm run dev - to run the server and frontend project.
+4. npm run dev - to run the server and frontend project. Bring in the root file frontend server can be run by <<npm run client>>.
 5. npm i bootstrap react-icons react-bootstrap = install the bootstap, react relating bootstrap and icons.
 6. npm i react-router-dom = for importing the router package required for routing.
 7. rafce (in coding) = generates boilarplate as per the file name after installing react snippet.
@@ -39,6 +39,12 @@ Instructions on how to install and set up the project. : To install and use the 
 
 1. npm i @reduxjs/toolkit = install the redux tool kit, wholly redux configuration.
 2. npm i react-redux = isntall the redux tools kit, means which is configured to wrap that in the react and supply in the component we use this command.
+
+<<<<<<Server for the both backend and fronted can be started by the singel script.>>>>>>
+
+1. npm i -D concurrently = It starts multiple npm script at the same time. It is installed on the root folder.
+2. setting done in package.json: "dev": "concurrently \"npm run server\" \"npm run client\""
+   Now run both server at once: <<npm run dev>>
 
 ## Usage
 
