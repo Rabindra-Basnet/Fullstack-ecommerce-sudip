@@ -10,7 +10,14 @@ const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    // // To clear JWT from application after logout.
+    userLogout: builder.mutation({
+      query: () => ({
+        url: `${USER_URL}/logout`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = userApiSlice;
+export const { useLoginMutation, useUserLogoutMutation } = userApiSlice; // // Exporting by giving naming configuration of hooks.
