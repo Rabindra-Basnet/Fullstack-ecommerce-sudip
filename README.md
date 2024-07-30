@@ -48,7 +48,7 @@ Instructions on how to install and set up the project. : To install and use the 
 
 ## Usage
 
-Examples of how to use the project. : Use the project as a ecommerce business portal for the backend.
+Examples of how to use the project. : Use the project as a ecommerce business portal.
 
 ## Contributing
 

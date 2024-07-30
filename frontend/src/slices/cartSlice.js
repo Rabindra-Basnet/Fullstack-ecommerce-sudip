@@ -1,11 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  // cartItems: [],
-  cartItems: localStorage.getItem("cart")
-    ? JSON.parse(localStorage.getItem("cart"))
-    : [],
-};
+// const initialState = {  // // Getting the cartItems from the local storage.
+//   // cartItems: [],
+//   cartItems: localStorage.getItem("cart")
+//     ? JSON.parse(localStorage.getItem("cart"))
+//     : [],
+// };
+
+// // Adding the shipping address in the local storage with getting the cartItems from the local storage.
+const initialState = localStorage.getItem("cart")
+  ? JSON.parse(localStorage.getItem("cart"))
+  : {
+      cartItems: [],
+      shippingAddress: {},
+    };
 
 const cartSlice = createSlice({
   name: "cart",
@@ -21,15 +29,19 @@ const cartSlice = createSlice({
         );
       } else state.cartItems = [...state.cartItems, action.payload];
       // state.cartItems.push(action.payload); // // Can be used but above line method is better
-      localStorage.setItem("cart", JSON.stringify(state.cartItems));
+      localStorage.setItem("cart", JSON.stringify(state));
     },
     removeItem: (state, action) => {
       let itemId = action.payload;
       state.cartItems = state.cartItems.filter((item) => item._id != itemId);
-      localStorage.setItem("cart", JSON.stringify(state.cartItems));
+      localStorage.setItem("cart", JSON.stringify(state));
+    },
+    saveShippingAddress: (state, action) => {
+      state.shippingAddress = action.payload;
+      localStorage.setItem("cart", JSON.stringify(state));
     },
   },
 });
 
-export const { addItem, removeItem } = cartSlice.actions;
+export const { addItem, removeItem, saveShippingAddress } = cartSlice.actions;
 export default cartSlice.reducer;
