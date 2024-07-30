@@ -40,7 +40,7 @@ Instructions on how to install and set up the project. : To install and use the 
 1. npm i @reduxjs/toolkit = install the redux tool kit, wholly redux configuration.
 2. npm i react-redux = isntall the redux tools kit, means which is configured to wrap that in the react and supply in the component we use this command.
 
-<<<<<<Server for the both backend and fronted can be started by the singel script.>>>>>>
+<<<<<< Server for the both backend and fronted can be started by the singel script. >>>>>>
 
 1. npm i -D concurrently = It starts multiple npm script at the same time. It is installed on the root folder.
 2. setting done in package.json: "dev": "concurrently \"npm run server\" \"npm run client\""
