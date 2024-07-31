@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import Message from "../components/Message";
 
 const CartPage = () => {
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems, shippingCharge, totalPrice, itemPrice } = useSelector(
+    (state) => state.cart
+  );
   const dispatch = useDispatch();
   const changeCartQty = (item, qty) => {
     dispatch(addItem({ ...item, qty }));
@@ -77,16 +79,17 @@ const CartPage = () => {
                   <Col> Sub Total</Col>
                   <Col>
                     $
-                    {cartItems
+                    {/* {cartItems
                       .reduce((acc, item) => acc + item.qty * item.price, 0)
-                      .toFixed(2)}
+                      .toFixed(2)} */}
+                    {itemPrice}
                   </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col> Shipping Charge </Col>
-                  <Col> $5 </Col>
+                  <Col> ${shippingCharge} </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
@@ -97,9 +100,11 @@ const CartPage = () => {
                   <Col>
                     <strong>
                       $
-                      {cartItems
+                      {/* {cartItems
                         .reduce((acc, item) => acc + item.qty * item.price, 5)
-                        .toFixed(2)}
+                        .toFixed(2)} */}
+                      {/* {(Number(totalPrice) + shippingCharge).toFixed(2)} */}
+                      {totalPrice}
                     </strong>
                   </Col>
                 </Row>
