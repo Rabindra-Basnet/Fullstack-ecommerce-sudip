@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 // // routers import
 import userRouter from "./routes/user.router.js";
 import productRouter from "./routes/product.router.js";
+import orderRouter from "./routes/order.router.js"
 
 
 // Initialize express app
@@ -23,8 +24,8 @@ app.use(logger);
 
 // // Routes: 
 app.use("/api/v1/user", userRouter);   // // Base route for user controller and router.
-app.use("/api/v1/products", productRouter) // // Base router for producte controller and router.
-
+app.use("/api/v1/products", productRouter); // // Base router for producte controller and router.
+app.use("/api/v1/orders", orderRouter);  // // base route for order controller and router.
 
 // // error handlers:
 app.use(notFoundHandler);
