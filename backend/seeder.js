@@ -18,7 +18,7 @@ connectDB();
 async function importData() {// // Import certain dommy data and add in the database.
    try{
     await User.deleteMany();    // // Naya user add garnu bhanda aagaid purna lai delete garna.
-   await Product.deleteMany();
+    await Product.deleteMany();
 
     let newusers = await User.insertMany(users);
     await Product.insertMany(
@@ -59,7 +59,6 @@ if (process.argv[2] == "-d"){    // // run from terminal: node .\backend\seeder.
 else{
     importData();  // // run  from terminal: node .\backend\seeder.js
 };
-
 
 
 
