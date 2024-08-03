@@ -24,7 +24,7 @@ const orderSlice = apiSlice.injectEndpoints({
     }),
     getAllOrders: builder.query({
       query: () => ({
-        url: ORDER_URL,
+        url: ORDER_URL, // // calling api for all the orders for the pages > admin > OrdersPage.jsx
       }),
     }),
     updateOrderStatus: builder.mutation({

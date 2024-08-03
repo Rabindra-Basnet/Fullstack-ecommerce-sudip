@@ -34,6 +34,7 @@ Instructions on how to install and set up the project. : To install and use the 
 7. rafce (in coding) = generates boilarplate as per the file name after installing react snippet.
 8. npm i axios = package of setting route (to connecet frontend and backend using api) or use fetch api.
 9. npm i react-toastify = package used to add pop up notification with icons.
+10. npm i react-router-bootstrap = It provides a simple way to integrate React Router with React-Bootstrap components. It allows you to use React Router's Link and NavLink components with React-Bootstrap's UI components seamlessly. Essentially, it wraps Bootstrap components and enhances them with routing capabilities, enabling easier navigation within a React application that uses Bootstrap for its UI styling.
 
 <<<<<< Redux for this frontend part>>>>>>
 
