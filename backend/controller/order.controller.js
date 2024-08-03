@@ -1,5 +1,6 @@
 import Order from "../models/order.model.js";
 import asyncHandler from "../middleware/asynchandler.middleware.js";
+import ApiError from "../utils/apiError.js";
 
 const addOrder = asyncHandler(async (req, res) => {
   let { orderItems, itemPrice, shippingCharge, totalPrice, shippingAddress } =
@@ -39,6 +40,20 @@ const getMyOrders = asyncHandler(async (req, res) => {
   res.send(orders);
 });
 
-// // Now add section : isDelivered and isPaid should be true in the database and status should be delivered.
+// // Now adding section : isDelivered and isPaid should be true in the database and status should be delivered, cancled and so on.
+const updateOrderStatus = asyncHandler(async (req, res) => {
+  let id = req.params.id;
+  let status = req.body.status;
+  let order = await Order.findById(id);
+  if (!order) throw new ApiError(404, "Order Not Found");
+  order.status = status;
+  if (status == "delivered") {
+    order.isDelivered = true;
+    order.isPaid = true;
+    order.deliveredAt = Date.now();
+  }
+  order.save();
+  res.send({ message: "Order status change to " + order.status });
+});
 
-export { addOrder, getOrders, getOrderById, getMyOrders };
+export { addOrder, getOrders, getOrderById, getMyOrders, updateOrderStatus };

@@ -27,6 +27,7 @@ const orderSlice = apiSlice.injectEndpoints({
         url: ORDER_URL, // // calling api for all the orders for the pages > admin > OrdersPage.jsx
       }),
     }),
+    // // calling the api from routes > order.router.js which comes from oder.controller.js
     updateOrderStatus: builder.mutation({
       query: (data) => ({
         url: `${ORDER_URL}/${data.id}/updatestatus`,
