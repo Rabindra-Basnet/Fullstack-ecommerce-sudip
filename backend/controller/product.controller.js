@@ -32,8 +32,17 @@ const getProdcutById = asyncHandler(async (req, res) => {
 // @route /api/v1/products/
 // @access private only by admin.
 const addProduct = asyncHandler(async (req, res) => {
-    let product = await Product.create({...req.body, user:req.user._id}) // //Here req.user._id value is given by checkAuth from auth.middleware. 
-    res.send({message: "Product created successfully!", product});
+    // let product = await Product.create({...req.body, user:req.user._id}) // //Here req.user._id value is given by checkAuth from auth.middleware. 
+    let product = await Product.create({
+        user: req.user._id,
+        name: 'Sample Product',
+        description: 'Sample Description',
+        image: '/images/sample.jpg',
+        price: 0,
+        brand: 'Sample Brand',
+        category:'Sample category'
+    })
+    res.send({ message: "Product created successfully!", product });
 });
 
 

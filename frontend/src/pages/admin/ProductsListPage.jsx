@@ -1,11 +1,26 @@
 import React from "react";
-import { useGetProductsQuery } from "../../slices/productSlice";
+import {
+  useAddProductMutation,
+  useGetProductsQuery,
+} from "../../slices/productSlice";
 import { Row, Col, Button, Table } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Message from "../../components/Message";
+import { toast } from "react-toastify";
 
 const ProductsListPage = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
+  const [addProduct, { isLoading: productLoading }] = useAddProductMutation();
+
+  const addProductHandler = async () => {
+    try {
+      let resp = await addProduct().unwrap();
+      toast.success(resp.message);
+    } catch (err) {
+      toast.error(err.data.error);
+    }
+  };
+
   return (
     <>
       <Row className="align-items-center mb-3">
@@ -13,7 +28,7 @@ const ProductsListPage = () => {
           <h3>Products</h3>
         </Col>
         <Col className="text-end">
-          <Button size="sm" variant="primary">
+          <Button size="sm" variant="primary" onClick={addProductHandler}>
             <FaEdit className="mb-1" /> Create Product
           </Button>
         </Col>
