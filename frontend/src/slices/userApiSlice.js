@@ -17,7 +17,19 @@ const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
+    // // Comes from the backend controller > user.controller.js > updateUserProfile
+    updateUserProfile: builder.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/profile`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useUserLogoutMutation } = userApiSlice; // // Exporting by giving naming configuration of hooks.
+export const {
+  useLoginMutation,
+  useUserLogoutMutation,
+  useUpdateUserProfileMutation,
+} = userApiSlice; // // Exporting by giving naming configuration of hooks.

@@ -15,4 +15,3 @@ router.post("/addorder", checkAuth, addOrder);
 router.get("/:id", checkAuth, getOrderById);
 
 export default router;
-

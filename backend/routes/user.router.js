@@ -15,6 +15,7 @@ router.get("/profile", checkAuth, getUserProfile);
 router.put("/updateprofile", checkAuth, updateUserProfile);
 router.put("/updateuser/:id", checkAuth, updateUser);
 router.delete("/deleteuser/:id", deleteUser);
+router.put("/profile", checkAuth, updateUserProfile);
 
 export default router;
 

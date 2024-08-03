@@ -6,6 +6,7 @@ import { Link, useParams, useNavigate } from "react-router-dom"; // // We are us
 import { addItem } from "../slices/cartSlice";
 import { useDispatch } from "react-redux"; // // For using the imported addItem, just above.
 import { useGetProductByIdQuery } from "../slices/productSlice";
+import Message from "../components/Message";
 
 function ProductPage() {
   const { id } = useParams(); // // ID comes from main.jsx from route call of ProductPage(this);

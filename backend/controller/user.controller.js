@@ -119,7 +119,14 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       // // If we have password field then only I go to just down step.
       user.password = req.body.password; // // We do not follow the process as in eamil because here the password is already hashed and if we do show again it will be hashed.
     let UpdatedUser = await user.save();
-    res.send({ message: "User updated", UpdatedUser });
+    res.send({
+      message: "User profile updated",
+      user: {
+        name: UpdatedUser.name,
+        email: UpdatedUser.email,
+        isAdmin: updateUser.isAdmin,
+      },
+    });
   } else {
     throw new ApiError(404, "User not found!");
   }
