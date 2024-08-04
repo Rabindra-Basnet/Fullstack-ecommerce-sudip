@@ -1,6 +1,7 @@
 import React from "react";
 import {
   useAddProductMutation,
+  useDeleteProductMutation,
   useGetProductsQuery,
 } from "../../slices/productSlice";
 import { Row, Col, Button, Table } from "react-bootstrap";
@@ -12,6 +13,8 @@ import { Link } from "react-router-dom";
 const ProductsListPage = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
   const [addProduct, { isLoading: productLoading }] = useAddProductMutation();
+  const [deleteProduct, { isLoading: deleteLoading }] =
+    useDeleteProductMutation();
 
   const addProductHandler = async () => {
     try {
@@ -22,6 +25,16 @@ const ProductsListPage = () => {
     }
   };
 
+  const deleteProductHandler = async (id) => {
+    if (window.confirm("Are you sure you want to delete the product?")) {
+      try {
+        let resp = await deleteProduct(id).unwrap();
+        toast.success(resp.message);
+      } catch (err) {
+        toast.error(err.data.error);
+      }
+    }
+  };
   return (
     <>
       <Row className="align-items-center mb-3">
@@ -70,7 +83,12 @@ const ProductsListPage = () => {
                     >
                       <FaEdit />
                     </Button>
-                    <Button size="sm" variant="danger" className="ms-1">
+                    <Button
+                      size="sm"
+                      variant="danger"
+                      className="ms-1"
+                      onClick={() => deleteProductHandler(product._id)}
+                    >
                       <FaTrash style={{ color: "white" }} />
                     </Button>
                   </td>
