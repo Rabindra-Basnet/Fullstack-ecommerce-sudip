@@ -4,6 +4,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   useGetProductByIdQuery,
   useUpdateProductMutation,
+  useUploadProductImageMutation,
 } from "../../slices/productSlice";
 import FormContainer from "../../components/FormContainer";
 import { toast } from "react-toastify";
@@ -13,6 +14,7 @@ function ProductEditPage() {
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
+  const [image, setImage] = useState(null);
   const [price, setPrice] = useState(0);
   const [countInStock, setCountInStock] = useState(0);
   const { id } = useParams();
@@ -25,6 +27,9 @@ function ProductEditPage() {
 
   const [updateProduct, { isLoading: updateLoading }] =
     useUpdateProductMutation();
+
+  const [uploadProductImage, { isLoading: imageLoading }] =
+    useUploadProductImageMutation();
 
   useEffect(() => {
     if (product) {
@@ -46,10 +51,22 @@ function ProductEditPage() {
         brand,
         category,
         description,
+        image,
         price,
         countInStock,
       }).unwrap();
       navigate("/admin/products");
+      toast.success(resp.message);
+    } catch (err) {
+      toast.error(err.data.error);
+    }
+  };
+  const uploadImageHandler = async (e) => {
+    try {
+      let formData = new FormData();
+      formData.append("image", e.target.files[0]);
+      let resp = await uploadProductImage(formData).unwrap();
+      setImage(resp.path);
       toast.success(resp.message);
     } catch (err) {
       toast.error(err.data.error);
@@ -75,6 +92,10 @@ function ProductEditPage() {
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
             />
+            <Form.Group controlId="image">
+              <Form.Label>Image</Form.Label>
+              <Form.Control type="file" onChange={uploadImageHandler} />
+            </Form.Group>
           </Form.Group>
           <Form.Group controlId="category" className="my-2">
             <Form.Label>Category</Form.Label>
