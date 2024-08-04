@@ -24,6 +24,14 @@ const productSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Product"], // // When api is called, this will say that the product data is invalid and refetch it again. Means the cache has the exisitg data,
       // // clear that a update the new data after new data is updated.This helps to update and display the new data without page refersh as well as display the existing data as it is.
     }),
+    updateProduct: builder.mutation({
+      query: (data) => ({
+        url: `${PRODUCT_URL}/${data._id}`, // // This is done to for update button to update the product in ProductEditPage.jsx by calling the api from backend > controller > product.controller.js > upateProduct
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Product"],
+    }),
   }),
 });
 
@@ -31,4 +39,5 @@ export const {
   useGetProductsQuery,
   useGetProductByIdQuery,
   useAddProductMutation,
+  useUpdateProductMutation,
 } = productSlice;
