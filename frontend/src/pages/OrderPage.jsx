@@ -1,7 +1,10 @@
 import { ListGroup, Row, Col, Card, Image, Badge, Form } from "react-bootstrap";
 import Message from "../components/Message";
 import { useParams, Link } from "react-router-dom";
-import { useGetOrderByIdQuery, useUpdateOrderStatusMutation } from "../slices/orderSlice";
+import {
+  useGetOrderByIdQuery,
+  useUpdateOrderStatusMutation,
+} from "../slices/orderSlice";
 import { orderStatusColor } from "../utils/orderStatusColors";
 import { useSelector } from "react-redux";
 import { FaEdit } from "react-icons/fa";
@@ -67,7 +70,7 @@ function OrderPage() {
                     <Image src={item.image} fluid rounded />
                   </Col>
                   <Col>
-                    <Link to={`/product/${item._id}`}>
+                    <Link to={`/product/${item.product}`}>
                       <strong>{item.name}</strong>
                     </Link>
                   </Col>

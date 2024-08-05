@@ -8,7 +8,7 @@ import { Outlet } from "react-router-dom";
 function App() {
   return (
     <>
-      <h1> Ecommerce </h1>
+      {/* <h1> Ecommerce </h1> */}
       <Header />
       <Container className="my-3">
         <Outlet />
