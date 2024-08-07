@@ -1,9 +1,11 @@
 import { Row, Col } from "react-bootstrap";
 // import products from "../products";  // // Now we can delete the product.js from the fontend because we are fetching from backend.
 import Product from "../components/Product";
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useGetProductsQuery } from "../slices/productSlice";
 import Message from "../components/Message";
+import Paginate from "../components/Paginate";
 
 // // Using the fetch api to fetch the data from backend by using state.
 // const HomePage = () => {
@@ -18,9 +20,32 @@ import Message from "../components/Message";
 //   }, []);
 
 // // Using productSlice from aplSlice to fetch the data from backend.
+// // .........<<<<<<<code without pagination>>>>>>>>>
+// const HomePage = () => {
+//   const { data: products, isLoading, error } = useGetProductsQuery();
+//   return (
+//     <>
+//       <h1>Latest Products</h1>
+//       {isLoading ? (
+//         <h1>Loading...</h1>
+//       ) : error ? (
+//         <Message variant="danger">{error?.data?.error || error.error}</Message>
+//       ) : (
+//         <Row>
+//           {products.map((product) => (
+//             <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+//               <Product product={product} />
+//             </Col>
+//           ))}
+//         </Row>
+//       )}
+//     </>
+//   );
+// };
+// // the above code by adding pagination.
 const HomePage = () => {
-  const { data: products, isLoading, error } = useGetProductsQuery();
-  // console.log(error);
+  const { pageNumber } = useParams();
+  const { data, isLoading, error } = useGetProductsQuery({ pageNumber });
   return (
     <>
       <h1>Latest Products</h1>
@@ -29,13 +54,16 @@ const HomePage = () => {
       ) : error ? (
         <Message variant="danger">{error?.data?.error || error.error}</Message>
       ) : (
-        <Row>
-          {products.map((product) => (
-            <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
-              <Product product={product} />
-            </Col>
-          ))}
-        </Row>
+        <>
+          <Row>
+            {data.products.map((product) => (
+              <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+                <Product product={product} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate page={data.page} pages={data.pages} />
+        </>
       )}
     </>
   );

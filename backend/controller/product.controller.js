@@ -4,14 +4,24 @@ import Product from "../models/product.model.js";
 
 
 // @desc get all products
-// @route /api/v1/products/allproducts 
+// @route /api/v1/products/allproducts
 // @route /api/v1/products/       // //this route is for new method of route used in product router.
 // @access public
-const getProducts = asyncHandler(async(req, res) => {
-    let products = await Product.find({});
-    res.send(products)
-});
 
+// const getProducts = asyncHandler(async(req, res) => {
+//     let products = await Product.find({});
+//     res.send(products)
+// });
+
+// // <<< Modified above getProducts backend code for adding pagination>>
+// @route /api/v1/products?pageNumber=2(anypage)
+const getProducts = asyncHandler(async (req, res) => {
+    const pageSize = 2;  // // backend code part for pagination.
+    const page = Number(req.query.pageNumber) || 1; // // pagination part.
+    let productCount = await Product.countDocuments();
+    let products = await Product.find({}).limit(pageSize).skip(pageSize * (page-1));
+    res.send({ products, page, pages: Math.ceil(productCount / pageSize) });
+});
 
 // @desc get product by ID
 // @route /api/v1/products/productbyid/:id 

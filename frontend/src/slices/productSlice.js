@@ -3,12 +3,22 @@ import { apiSlice } from "./apiSlice";
 
 const productSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    // getProducts: builder.query({
+    //   query: () => ({
+    //     url: PRODUCT_URL,
+    //   }),
+    //   providesTags: ["Product"], // // It is alsi used for caching data like refetch. Helps to link with the particular tag for caching.
+    //   keepUnusedDataFor: 10, // // time that remians the loaded data in the cache (standard: 60s). So, that loaded data will not load in the time frame if clicked again.
+    // }),
+
+    // // the same above code but edited for adding pagination.
     getProducts: builder.query({
-      query: () => ({
+      query: ({ pageNumber }) => ({
         url: PRODUCT_URL,
+        params: { pageNumber }, // // add queryparams in the routes => /api/v1/products?pageNumbers=2
       }),
-      providesTags: ["Product"], // // It is alsi used for caching data like refetch. Helps to link with the particular tag for caching.
-      keepUnusedDataFor: 10, // // time that remians the loaded data in the cache (standard: 60s). So, that loaded data will not load in the time frame if clicked again.
+      providesTags: ["Product"],
+      keepUnusedDataFor: 10,
     }),
     getProductById: builder.query({
       query: (id) => ({
