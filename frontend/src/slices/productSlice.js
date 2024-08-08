@@ -13,9 +13,9 @@ const productSlice = apiSlice.injectEndpoints({
 
     // // the same above code but edited for adding pagination.
     getProducts: builder.query({
-      query: ({ pageNumber }) => ({
+      query: ({ keyword, pageNumber }) => ({
         url: PRODUCT_URL,
-        params: { pageNumber }, // // add queryparams in the routes => /api/v1/products?pageNumbers=2
+        params: { keyword, pageNumber }, // // add queryparams in the routes => /api/v1/products?pageNumbers=2&keyword=phone
       }),
       providesTags: ["Product"],
       keepUnusedDataFor: 10,

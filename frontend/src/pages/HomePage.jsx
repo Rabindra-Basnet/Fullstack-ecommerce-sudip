@@ -44,8 +44,12 @@ import Paginate from "../components/Paginate";
 // };
 // // the above code by adding pagination.
 const HomePage = () => {
-  const { pageNumber } = useParams();
-  const { data, isLoading, error } = useGetProductsQuery({ pageNumber });
+  const { pageNumber, keyword } = useParams();
+  const { data, isLoading, error } = useGetProductsQuery({
+    pageNumber,
+    keyword,
+  });
+  console.log(error);
   return (
     <>
       <h1>Latest Products</h1>
