@@ -11,6 +11,7 @@ import {
 } from "../slices/productSlice";
 import Message from "../components/Message";
 import { toast } from "react-toastify";
+import Meta from "../components/Meta";
 
 function ProductPage() {
   const { id } = useParams(); // // ID comes from main.jsx from route call of ProductPage(this);
@@ -58,6 +59,7 @@ function ProductPage() {
         <Message variant="danger">{error?.data?.error || error.error}</Message>
       ) : (
         <>
+          <Meta title={product.name} description={product.description} />
           <Link className="btn btn-primary" to="/">
             Go Back
           </Link>

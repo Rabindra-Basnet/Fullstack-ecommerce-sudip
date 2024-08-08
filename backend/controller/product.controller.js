@@ -15,7 +15,7 @@ import Product from "../models/product.model.js";
 // // <<< Modified above getProducts backend code for adding pagination>>
 // @route /api/v1/products?pageNumber=2(anypage)
 const getProducts = asyncHandler(async (req, res) => {
-    const pageSize = 1; // // backend code part for pagination.
+    const pageSize = 2; // // backend code part for pagination.
     const page = Number(req.query.pageNumber) || 1; // // pagination part.
     let keyword = req.query.keyword;
     keyword = keyword ? {

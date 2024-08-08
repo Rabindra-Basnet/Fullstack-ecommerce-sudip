@@ -7,6 +7,7 @@ import { useGetProductsQuery } from "../slices/productSlice";
 import Message from "../components/Message";
 import Paginate from "../components/Paginate";
 import ProductCarousel from "../components/ProductCarousel";
+import Meta from "../components/Meta";
 
 // // Using the fetch api to fetch the data from backend by using state.
 // const HomePage = () => {
@@ -53,6 +54,7 @@ const HomePage = () => {
   console.log(error);
   return (
     <>
+      <Meta/>
       {!keyword && <ProductCarousel />}
       {keyword ? (
         <h2> Search Results for {keyword}</h2>
