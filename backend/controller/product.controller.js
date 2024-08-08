@@ -15,7 +15,7 @@ import Product from "../models/product.model.js";
 // // <<< Modified above getProducts backend code for adding pagination>>
 // @route /api/v1/products?pageNumber=2(anypage)
 const getProducts = asyncHandler(async (req, res) => {
-    const pageSize = 2; // // backend code part for pagination.
+    const pageSize = 1; // // backend code part for pagination.
     const page = Number(req.query.pageNumber) || 1; // // pagination part.
     let keyword = req.query.keyword;
     keyword = keyword ? {
@@ -116,7 +116,8 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // @access public
 const getTopProducts = asyncHandler(async (req, res) => {
   // // This shows top products as per the value u put on limit might be top 10, 20, 30 ..
-  let limit = Number(req.params.limit); // // Giving the number of required products also by paramater.
+  // not taking this limit from params// let limit = Number(req.params.limit); // // Giving the number of required products also by paramater.
+  let limit = 3;
   let products = await Product.find({}).sort({ rating: -1 }).limit(limit); // // Insted pf making limit we can pass directly number in ....>>>.. limit(10)
   res.send(products);
 });
